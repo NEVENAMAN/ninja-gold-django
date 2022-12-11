@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Gold</title>
+    {% load static %}
+    <link rel="stylesheet" type ="text/css" href ="{% static 'css/master.css' %}">
+</head>
+<body>
+
+    <div class="container">
+        <form action="/">
+            {% csrf_token %}
+            Your Gold : <input type="text" name="totalgold" value="{{request.session.totalGold}}">
+                        <input type="submit" name="reset" value="reset">
+        </form>
+        <div class="forms">
+            <form action="/getGold" method="post">
+                {% csrf_token %}
+                <h1>Farm</h1>
+                <h3>(earns 10-20 golds)</h3>
+                <input type="hidden" name="which_form" value="farm">
+                <input type="submit" name="submit" value="Find Gold!">
+            </form>
+            <form action="/getGold" method="post">
+                {% csrf_token %}
+                <h1>Cave</h1>
+                <h3>(earns 5-10 golds)</h3>
+                <input type="hidden" name="which_form" value="cave">
+                <input type="submit" name="submit" value="Find Gold!">
+            </form>
+            <form action="/getGold" method="post">
+                {% csrf_token %}
+                <h1>House</h1>
+                <h3>(earns 2-5 golds)</h3>
+                <input type="hidden" name="which_form" value="house">
+                <input type="submit" name="submit" value="Find Gold!">
+            </form>
+            <form action="/getGold" method="post">
+                {% csrf_token %}
+                <h1>Casino</h1>
+                <h3>(earns/takes -0-50 golds)</h3>
+                <input type="hidden" name="which_form" value="casino">
+                <input type="submit" name="submit" value="Find Gold!">
+            </form>
+        </div>
+        <h2>Activities: </h2>
+        <div class="text">
+            {% for x in request.session.activeCurrentGoldsend %}
+              <h4>{{x}}</h4>
+            {% endfor %}<br>
+            {% for x in  request.session.casinoCurrentGoldsend %}
+              <h4 id="casino">{{x}}</h4>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
